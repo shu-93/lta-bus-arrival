@@ -1,0 +1,6 @@
+{
+  "name": "SG Bus Arrival - Live Singapore Bus Tracker",
+  "description": "Real-time Singapore bus arrival timings for the 5 nearest bus stops powered by LTA DataMall specs with live countdowns, crowd occupancy, bus deck types, and GPS proximity.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

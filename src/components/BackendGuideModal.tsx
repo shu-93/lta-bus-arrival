@@ -36,38 +36,18 @@ export const BackendGuideModal: React.FC<BackendGuideModalProps> = ({
 
   if (!isOpen) return null;
 
-  const backendCodeSnippet = `// In your Express server (server.ts or server.js):
-import express from 'express';
+  const backendCodeSnippet = `// Serverless Function is ready at /api/busarriavl.ts:
+// Simply add LTA_ACCOUNT_KEY to your environment variables!
 
-const app = express();
-const LTA_API_KEY = process.env.LTA_DATAMALL_KEY || 'YOUR_LTA_ACCOUNT_KEY';
+// Endpoint:
+// GET https://datamall2.mytransport.sg/ltaodataservice/v3/BusArrival?BusStopCode=83139
+// Headers:
+//   AccountKey: process.env.LTA_ACCOUNT_KEY
+//   accept: application/json
 
-app.get('/api/lta/bus-arrival', async (req, res) => {
-  const { BusStopCode } = req.query;
-  if (!BusStopCode) {
-    return res.status(400).json({ error: 'BusStopCode query parameter is required' });
-  }
-
-  try {
-    const url = \`http://datamall2.mytransport.sg/ltaodataservice/v3/BusArrival?BusStopCode=\${BusStopCode}\`;
-    const response = await fetch(url, {
-      headers: {
-        'AccountKey': LTA_API_KEY,
-        'Accept': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(\`LTA DataMall responded with status \${response.status}\`);
-    }
-
-    const data = await response.json();
-    return res.json(data);
-  } catch (error) {
-    console.error('LTA API error:', error);
-    return res.status(500).json({ error: 'Failed to fetch bus arrival timings' });
-  }
-});`;
+// Local / Serverless test:
+// GET /api/health
+// GET /api/busarriavl?BusStopCode=83139`;
 
   const handleSave = () => {
     saveApiConfiguration({
@@ -81,10 +61,10 @@ app.get('/api/lta/bus-arrival', async (req, res) => {
 
   const handleTestConnection = async () => {
     setTestStatus('testing');
-    setTestMessage('Testing connection to ' + endpointUrl + '?BusStopCode=09048...');
+    setTestMessage('Testing connection to ' + endpointUrl + '?BusStopCode=83139...');
 
     try {
-      const url = `${endpointUrl}${endpointUrl.includes('?') ? '&' : '?'}BusStopCode=09048`;
+      const url = `${endpointUrl}${endpointUrl.includes('?') ? '&' : '?'}BusStopCode=83139`;
       const res = await fetch(url, {
         headers: {
           Accept: 'application/json',
@@ -219,7 +199,7 @@ app.get('/api/lta/bus-arrival', async (req, res) => {
                   type="text"
                   value={endpointUrl}
                   onChange={(e) => setEndpointUrl(e.target.value)}
-                  placeholder="/api/lta/bus-arrival"
+                  placeholder="/api/busarriavl"
                   className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 font-mono text-xs focus:outline-none focus:border-emerald-500"
                 />
                 <span className="text-[10px] text-slate-500 mt-1 block">

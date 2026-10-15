@@ -15,7 +15,7 @@ const BOOKMARKS_STORAGE_KEY = 'sg_bus_arrival_bookmarks';
 
 // Default configuration
 const DEFAULT_CONFIG: ApiConfiguration = {
-  endpointUrl: '/api/lta/bus-arrival',
+  endpointUrl: '/api/busarriavl',
   useBackend: false, // Default to simulated LTA data until user attaches backend
   autoRefreshIntervalSec: 15,
 };
